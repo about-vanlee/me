@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:ssg": "vite-ssg build"
+  },
+  "dependencies": {
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@unhead/vue": "^1.9.15",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.3.3",
+    "vite-ssg": "^0.23.8"
+  }
+}
