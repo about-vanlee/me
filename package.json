@@ -1,18 +1,16 @@
 {
-  "type": "module",
+  "name": "me",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:ssg": "vite-ssg build"
-  },
-  "dependencies": {
-    "vue": "^3.4.31",
-    "vue-router": "^4.4.0"
+    "dev": "nodemon server.js"
   },
   "devDependencies": {
-    "@unhead/vue": "^1.9.15",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "vite": "^5.3.3",
-    "vite-ssg": "^0.23.8"
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.4.1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10"
   }
 }
