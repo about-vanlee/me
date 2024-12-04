@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>{{title}} - 技术学习网站</title>
+    <!-- 引入CSS文件 -->
+    <link rel="stylesheet" href="/public/css/variables.css" />
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link rel="stylesheet" href="/public/css/header.css" />
+    <link rel="stylesheet" href="/public/css/content.css" />
+    <link rel="stylesheet" href="/public/css/footer.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="/" class="logo">技术学习</a>
+        <nav>
+          <a href="/ai" {{activeAI}}>AI</a>
+          <a href="/html" {{activeHTML}}>HTML</a>
+          <a href="/css" {{activeCSS}}>CSS</a>
+          <a href="/javascript" {{activeJS}}>JavaScript</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <div class="container">{{content}}</div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <p>技术学习网站 &copy; 2024</p>
+      </div>
+    </footer>
+  </body>
+</html>

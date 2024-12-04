@@ -1,0 +1,40 @@
+/* 导入变量 */
+@import './variables.css';
+
+/* 全局响应式设置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  /* 在移动端调整基础字体大小 */
+  @media (--mobile) {
+    font-size: 14px;
+  }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  overflow-x: hidden; /* 防止水平滚动 */
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+
+  @media (--mobile) {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+/* 响应式图片 */
+img {
+  max-width: 100%;
+  height: auto;
+}

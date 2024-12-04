@@ -1,0 +1,21 @@
+/* 响应式断点变量 */
+:root {
+  /* 颜色变量 */
+  --primary-color: #007bff;
+  --text-color: #333;
+  --bg-color: #ffffff;
+  --secondary-bg: #f8f9fa;
+
+  /* 间距变量 */
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* 容器宽度 */
+  --container-width: 1200px;
+
+  /* 媒体查询断点 */
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1024px;
+}

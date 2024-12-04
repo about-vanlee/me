@@ -1,0 +1,16 @@
+/* 底部响应式样式 */
+footer {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-lg) 0;
+  margin-top: auto;
+
+  @media (--mobile) {
+    padding: var(--spacing-md) 0;
+  }
+}
+
+footer p {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
