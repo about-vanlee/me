@@ -14,13 +14,17 @@
     <link rel="stylesheet" href="/public/css/content.css" />
     <link rel="stylesheet" href="/public/css/footer.css" />
     <link rel="stylesheet" href="/public/css/mindmap.css" />
-
+    <link rel="stylesheet" href="/public/css/subnav.css" />
     <script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.16"></script>
   </head>
   <body>
     <header>
       <div class="header-container">
-        <a href="/" class="logo">测试</a>
+        <a href="/" class="logo">
+          <div class="js-logo">
+            <span>JS</span>
+          </div>
+        </a>
         <nav>
           <a href="/ai" {{activeAI}}>AI</a>
           <a href="/html" {{activeHTML}}>HTML</a>
@@ -28,6 +32,17 @@
           <a href="/javascript" {{activeJS}}>JavaScript</a>
         </nav>
       </div>
+
+      <!-- 添加二级导航 -->
+      {{#if isHTML}}
+      <div class="subnav-container">
+        <nav class="subnav">
+          <a href="/html/basic" {{activeHTMLBasic}}>基础课程</a>
+          <a href="/html/advanced" {{activeHTMLAdvanced}}>高级课程</a>
+          <a href="/html/blog" {{activeHTMLBlog}}>博客</a>
+        </nav>
+      </div>
+      {{/if}}
     </header>
 
     <div class="content-wrapper">

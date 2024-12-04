@@ -62,3 +62,131 @@ h3 {
     font-size: 1.2rem;
   }
 }
+
+.course-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.course-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: linear-gradient(145deg, #f6f8fa, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.course-header h1 {
+  font-size: 2.5em;
+  color: var(--heading-color);
+  margin-bottom: 15px;
+}
+
+.course-intro {
+  font-size: 1.2em;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 思维导图和视频的并排布局 */
+.overview-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+/* 思维导图样式 */
+.markmap {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 500px;
+  overflow: hidden;
+}
+
+/* 视频部分样式 */
+.video-section {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.video-container {
+  width: 100%;
+  padding-top: 56.25%;
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #000;
+}
+
+/* 课程内容样式 */
+.course-content {
+  margin-top: 60px;
+}
+
+.content-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content-section h3 {
+  color: var(--heading-color);
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.example-code {
+  background: var(--code-bg);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.example-code code {
+  font-family: 'Fira Code', monospace;
+  color: var(--code-color);
+}
+
+/* 响应式设计 */
+@media (max-width: 968px) {
+  .overview-section {
+    grid-template-columns: 1fr;
+  }
+
+  .markmap,
+  .video-section {
+    height: 400px; /* 在移动端减小高度 */
+  }
+
+  .course-header h1 {
+    font-size: 2em;
+  }
+
+  .content-section {
+    padding: 20px;
+  }
+}

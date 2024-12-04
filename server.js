@@ -34,6 +34,28 @@ const pages = {
     title: 'HTML 教程',
     file: 'html.html',
     active: 'html',
+    isHTML: true, // 标记这是 HTML 页面
+  },
+  '/html/basic': {
+    title: 'HTML 基础课程',
+    file: 'html/basic.html',
+    active: 'html',
+    isHTML: true,
+    htmlSection: 'basic',
+  },
+  '/html/advanced': {
+    title: 'HTML 高级课程',
+    file: 'html/advanced.html',
+    active: 'html',
+    isHTML: true,
+    htmlSection: 'advanced',
+  },
+  '/html/blog': {
+    title: 'HTML 博客',
+    file: 'html/blog.html',
+    active: 'html',
+    isHTML: true,
+    htmlSection: 'blog',
   },
   '/css': {
     title: 'CSS 教程',
@@ -81,6 +103,17 @@ async function renderPage(route) {
     };
     activeStates[pageInfo.active] = 'class="active"';
 
+    // 设置 HTML 二级导航的激活状态
+    const htmlSubNavStates = {
+      basic: '',
+      advanced: '',
+      blog: '',
+    };
+
+    if (pageInfo.htmlSection) {
+      htmlSubNavStates[pageInfo.htmlSection] = 'class="active"';
+    }
+
     // 6. 替换模板变量
     template = template
       .replace('{{title}}', pageInfo.title)
@@ -89,7 +122,12 @@ async function renderPage(route) {
       .replace('{{activeAI}}', activeStates.ai)
       .replace('{{activeHTML}}', activeStates.html)
       .replace('{{activeCSS}}', activeStates.css)
-      .replace('{{activeJS}}', activeStates.js);
+      .replace('{{activeJS}}', activeStates.js)
+      .replace('{{#if isHTML}}', pageInfo.isHTML ? '' : '<!--')
+      .replace('{{/if}}', pageInfo.isHTML ? '' : '-->')
+      .replace('{{activeHTMLBasic}}', htmlSubNavStates.basic)
+      .replace('{{activeHTMLAdvanced}}', htmlSubNavStates.advanced)
+      .replace('{{activeHTMLBlog}}', htmlSubNavStates.blog);
 
     return template;
   } catch (err) {

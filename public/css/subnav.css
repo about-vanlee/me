@@ -1,0 +1,26 @@
+.subnav-container {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.subnav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.subnav a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 0;
+}
+
+.subnav a:hover {
+  color: #007bff;
+}
+
+.subnav a.active {
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+}
