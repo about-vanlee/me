@@ -1,9 +1,12 @@
 {
   "name": "me",
   "scripts": {
-    "dev": "nodemon server.js"
+    "server": "nodemon server.js --port 3001",
+    "dev": "concurrently \"pnpm run server\" \"browser-sync start --config bs-config.js\""
   },
   "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "concurrently": "^9.1.0",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

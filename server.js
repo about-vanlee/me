@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs').promises;
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const TEMPLATE_FILE = './views/template.html';
 // 确保定义了所有必需的常量
