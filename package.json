@@ -1,8 +1,7 @@
 {
   "name": "me",
   "scripts": {
-    "server": "nodemon server.js --port 3001",
-    "dev": "concurrently \"pnpm run server\" \"browser-sync start --config bs-config.js\""
+    "dev": "nodemon server.js"
   },
   "devDependencies": {
     "browser-sync": "^3.0.3",
