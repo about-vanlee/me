@@ -16,42 +16,37 @@
           colorFreezeLevel: 2
         ---
 
-        # HTML基础
 
-        ## 网页基础
-        - 什么是HTML
-        - HTML的历史
-        - 开发工具介绍
-        - 浏览器工作原理
+        ## 扩展阅读
 
-        ## HTML文档结构
-        - DOCTYPE声明
-        - HTML标签
-        - HEAD标签
-        - BODY标签
+        - https://www.w3schools.com/tags/tag_doctype.ASP
+        - https://developer.mozilla.org/en-US/docs/Glossary/Doctype
+        - https://html.spec.whatwg.org/multipage/syntax.html#the-doctype
+        - https://www.freecodecamp.org/news/what-is-the-doctype-declaration-in-html/
 
-        ## 基础标签
-        - 标题标签
-        - 段落标签
-        - 链接标签
-        - 图片标签
-        - 列表标签
-        - 表格标签
+        ## 介绍
+        - 文档类型声明 / The HTML document type declaration
+        - 必须以<!DOCTYPE>声明开头
+        - not an HTML tag
+        - 确保浏览器尽最大努力遵循相关规范
+        ## 大小写问题
+        - MDN 代码示例的约定是使用小写
+        - 但也常见将其写为<!DOCTYPE html>
+        - `<!DOCTYPE html>`
+        - `<!DocType html>`
+        - `<!Doctype html>`
+        - `<!doctype html>`
 
-        ## 表单元素
-        - 输入框
-        - 按钮
-        - 单选框
-        - 复选框
-        - 下拉菜单
-        - 文本域
+        ## 使用注意事项
+        - 位置：文档第一行
+        - 重要性：不可省略 + 影响SEO和页面表现
+        ## HTML 4.01
+        - DOCTYPE声明指的是文档类型定义 (DTD)
+        - `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">`
 
-        ## HTML5新特性
-        - 语义化标签
-        - 多媒体标签
-        - Canvas绘图
-        - 本地存储
-        - Web Workers
+        ## XHTML 1.1
+
+        - `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">`
       </script>
     </div>
 
@@ -64,31 +59,47 @@
         </video>
       </div>
     </div>
+
+    <div class="additional-content">
+      <h2>文档类型</h2>
+      <table>
+        <tr>
+          <th>文档类型</th>
+          <th>作用</th>
+        </tr>
+        <tr>
+          <td>Strict DTD</td>
+          <td>用于排除 W3C 预计随着 CSS 支持的增长而逐步淘汰的属性和元素的网页</td>
+        </tr>
+        <tr>
+          <td>Transitional DTD</td>
+          <td>用于包含W3C 预计随着 CSS 支持的增长而逐步淘汰的属性和元素的网页</td>
+        </tr>
+        <tr>
+          <td>Frameset DTD</td>
+          <td>用于带有框架的网页</td>
+        </tr>
+      </table>
+
+      <h2>渲染模式</h2>
+      <table>
+        <tr>
+          <th>模式</th>
+          <th>描述</th>
+        </tr>
+        <tr>
+          <td>Full standards mode</td>
+          <td>完全标准模式根据 W3C Web 标准呈现页面</td>
+        </tr>
+        <tr>
+          <td>Quirks 模式</td>
+          <td>以不符合标准的方式呈现页面</td>
+        </tr>
+        <tr>
+          <td>Almost standards mode</td>
+          <td>接近于完全标准模式，但具有支持少量怪癖的功能</td>
+        </tr>
+      </table>
+    </div>
   </div>
-
-  <!-- 课程内容部分 -->
-  <section class="course-content">
-    <h2>详细教程</h2>
-
-    <article class="content-section">
-      <h3>1. 网页基础</h3>
-      <p>HTML（HyperText Markup Language）是构建网页的标准标记语言。通过HTML，我们可以：</p>
-      <ul>
-        <li>创建结构化的文档</li>
-        <li>添加文本、图片、视频等内容</li>
-        <li>建立页面之间的链接</li>
-      </ul>
-      <div class="example-code">
-        <pre><code>&lt;!DOCTYPE html&gt;
-  &lt;html&gt;
-    &lt;head&gt;
-      &lt;title&gt;我的第一个页面&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-      &lt;h1&gt;Hello, World!&lt;/h1&gt;
-    &lt;/body&gt;
-  &lt;/html&gt;</code></pre>
-      </div>
-    </article>
-  </section>
 </div>
