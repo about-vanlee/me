@@ -1,15 +1,33 @@
 const http = require('http');
 const fs = require('fs').promises;
 const path = require('path');
+const marked = require('marked');
+const matter = require('gray-matter');
+const highlight = require('highlight.js');
+
+// 配置 marked
+marked.setOptions({
+  highlight: function (code, lang) {
+    if (lang && highlight.getLanguage(lang)) {
+      return highlight.highlight(lang, code).value;
+    }
+    return highlight.highlightAuto(code).value;
+  },
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  smartLists: true,
+  smartypants: true,
+});
 
 const PORT = process.env.PORT || 3000;
-
 const TEMPLATE_FILE = './views/template.html';
-// 确保定义了所有必需的常量
 const VIEWS_DIR = path.join(__dirname, 'views');
 const PAGES_DIR = path.join(VIEWS_DIR, 'pages');
+const POSTS_DIR = path.join(__dirname, 'content/posts');
 
-// 添加 MIME 类型映射
+// MIME 类型映射
 const MIME_TYPES = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -19,6 +37,7 @@ const MIME_TYPES = {
   '.gif': 'image/gif',
 };
 
+// 页面路由配置
 const pages = {
   '/': {
     title: '首页',
@@ -34,7 +53,7 @@ const pages = {
     title: 'HTML 教程',
     file: 'html.html',
     active: 'html',
-    isHTML: true, // 标记这是 HTML 页面
+    isHTML: true,
   },
   '/html/basic': {
     title: 'HTML 基础课程',
@@ -69,22 +88,105 @@ const pages = {
   },
 };
 
+// 博客文章处理函数
+async function renderBlogPost(slug) {
+  try {
+    const filePath = path.join(POSTS_DIR, `${slug}.md`);
+    const fileContent = await fs.readFile(filePath, 'utf-8');
+    const { data, content } = matter(fileContent);
+    const htmlContent = marked(content);
+
+    const formattedDate = new Date(data.date).toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    const articleHtml = `
+      <article class="blog-post">
+        <header class="blog-header">
+          <h1>${data.title}</h1>
+          <div class="blog-meta">
+            <span class="date">发布于：${formattedDate}</span>
+            <span class="author">作者：${data.author}</span>
+            ${
+              data.tags
+                ? `
+              <div class="tags">
+                标签：${data.tags.map((tag) => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+            `
+                : ''
+            }
+          </div>
+        </header>
+        <div class="blog-content">
+          ${htmlContent}
+        </div>
+        <footer class="blog-footer">
+          <div class="blog-nav">
+            <a href="/html/blog" class="back-to-blog">← 返回博客列表</a>
+          </div>
+        </footer>
+      </article>
+    `;
+
+    return {
+      title: data.title,
+      content: articleHtml,
+      metadata: {
+        ...data,
+        date: formattedDate,
+      },
+    };
+  } catch (error) {
+    console.error('渲染博客文章时出错:', error);
+    throw new Error('文章不存在或无法访问');
+  }
+}
+
+// 获取博客列表函数
+async function getBlogPosts() {
+  try {
+    const files = await fs.readdir(POSTS_DIR);
+    const posts = [];
+
+    for (const file of files) {
+      if (file.endsWith('.md')) {
+        const content = await fs.readFile(path.join(POSTS_DIR, file), 'utf-8');
+        const { data, excerpt, content: fullContent } = matter(content, { excerpt: true });
+        const summary = excerpt || fullContent.slice(0, 200) + '...';
+
+        posts.push({
+          slug: file.replace('.md', ''),
+          title: data.title,
+          date: data.date,
+          author: data.author,
+          tags: data.tags || [],
+          excerpt: summary,
+        });
+      }
+    }
+
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  } catch (error) {
+    console.error('获取博客列表时出错:', error);
+    return [];
+  }
+}
+
+// 页面渲染函数
 async function renderPage(route) {
   try {
-    // 1. 首先检查路由是否存在
     if (!pages[route]) {
       throw new Error('Page not found');
     }
 
-    // 2. 读取模板文件
     const templatePath = path.join(VIEWS_DIR, 'template.html');
     let template = await fs.readFile(templatePath, 'utf-8');
-
-    // 3. 获取页面信息
     const pageInfo = pages[route];
-
-    // 4. 读取页面内容
     const contentPath = path.join(PAGES_DIR, pageInfo.file);
+
     let content;
     try {
       content = await fs.readFile(contentPath, 'utf-8');
@@ -93,7 +195,29 @@ async function renderPage(route) {
       content = '<h1>页面内容未找到</h1>';
     }
 
-    // 5. 设置导航激活状态
+    // 如果是博客列表页面，获取并渲染博客列表
+    if (route === '/html/blog') {
+      const posts = await getBlogPosts();
+      const postsHtml = posts
+        .map(
+          (post) => `
+        <article class="blog-post">
+          <h2><a href="/blog/${post.slug}">${post.title}</a></h2>
+          <div class="blog-meta">
+            <span class="date">${new Date(post.date).toLocaleDateString('zh-CN')}</span>
+            <span class="author">作者：${post.author}</span>
+            <span class="tags">标签：${post.tags.join(', ')}</span>
+          </div>
+          <div class="blog-excerpt">${post.excerpt}</div>
+          <a href="/blog/${post.slug}" class="read-more">阅读更多</a>
+        </article>
+      `
+        )
+        .join('');
+
+      content = content.replace('{{blogPosts}}', postsHtml);
+    }
+
     const activeStates = {
       home: '',
       ai: '',
@@ -103,7 +227,6 @@ async function renderPage(route) {
     };
     activeStates[pageInfo.active] = 'class="active"';
 
-    // 设置 HTML 二级导航的激活状态
     const htmlSubNavStates = {
       basic: '',
       advanced: '',
@@ -114,7 +237,6 @@ async function renderPage(route) {
       htmlSubNavStates[pageInfo.htmlSection] = 'class="active"';
     }
 
-    // 6. 替换模板变量
     template = template
       .replace('{{title}}', pageInfo.title)
       .replace('{{content}}', content)
@@ -136,100 +258,55 @@ async function renderPage(route) {
   }
 }
 
-// 服务器处理函数也需要相应更新
-const server = http.createServer(async (req, res) => {
-  // 处理静态文件请求
-  if (req.url.startsWith('/public/')) {
-    const served = await serveStaticFile(req, res);
-    if (served) return;
-  }
-
-  try {
-    const route = req.url;
-
-    // 尝试渲染页面
-    try {
-      const page = await renderPage(route);
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(page);
-    } catch (err) {
-      if (err.message === 'Page not found') {
-        res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.end('<h1>404 - 页面未找到</h1>');
-      } else {
-        throw err; // 将其他错误传递给外部错误处理
-      }
-    }
-  } catch (err) {
-    console.error('服务器错误:', err);
-    res.writeHead(500, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end('<h1>500 - 服务器内部错误</h1>');
-  }
-});
-
-// 处理 HTML 文件
-function serveHTML(filename, res) {
-  const filePath = path.join(__dirname, 'views', filename);
-  fs.readFile(filePath, 'utf8', (err, content) => {
-    if (err) {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Server Error');
-      return;
-    }
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(content);
-  });
-}
-
-// 处理静态文件的函数
-async function serveStaticFile(req, res) {
+// 处理静态文件
+async function handleStaticFile(req, res) {
   try {
     const filePath = path.join(__dirname, req.url);
-    const content = await fs.readFile(filePath);
     const ext = path.extname(filePath);
-    const contentType = MIME_TYPES[ext] || 'text/plain';
+    const content = await fs.readFile(filePath);
 
-    res.writeHead(200, { 'Content-Type': contentType });
+    res.writeHead(200, {
+      'Content-Type': MIME_TYPES[ext] || 'application/octet-stream',
+    });
     res.end(content);
-    return true;
   } catch (err) {
-    return false;
+    res.writeHead(404);
+    res.end('File not found');
   }
 }
 
-// 处理静态文件
-function serveStatic(url, res) {
-  const filePath = path.join(__dirname, 'public', url);
-  fs.readFile(filePath, (err, content) => {
-    if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('File not found');
+// 创建服务器
+const server = http.createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const pathname = url.pathname;
+
+    // 处理静态文件请求
+    if (pathname.startsWith('/public/')) {
+      return handleStaticFile(req, res);
+    }
+
+    // 处理博客文章请求
+    if (pathname.startsWith('/blog/')) {
+      const slug = pathname.replace('/blog/', '');
+      const post = await renderBlogPost(slug);
+      const template = await renderPage('/html/blog'); // 使用博客模板
+
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(template.replace('{{content}}', post.content));
       return;
     }
 
-    const ext = path.extname(url);
-    let contentType = 'text/plain';
-
-    switch (ext) {
-      case '.css':
-        contentType = 'text/css';
-        break;
-      case '.js':
-        contentType = 'text/javascript';
-        break;
-      case '.jpg':
-      case '.jpeg':
-        contentType = 'image/jpeg';
-        break;
-      case '.png':
-        contentType = 'image/png';
-        break;
-    }
-
-    res.writeHead(200, { 'Content-Type': contentType });
-    res.end(content);
-  });
-}
+    // 处理页面请求
+    const html = await renderPage(pathname);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end(html);
+  } catch (err) {
+    console.error('请求处理错误:', err);
+    res.writeHead(404);
+    res.end('Page not found');
+  }
+});
 
 server.listen(PORT, () => {
   console.log(`服务器运行在 http://localhost:${PORT}`);
