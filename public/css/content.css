@@ -1,13 +1,30 @@
-/* 内容区域响应式样式 */
+/* 内容区域基础样式 */
 .content-wrapper {
-  margin-top: 80px;
-  min-height: calc(100vh - 160px);
-  padding: var(--spacing-lg) 0;
+  margin-top: 80px; /* 为固定定位的 header 留出空间 */
+  min-height: calc(100vh - 160px); /* 减去 header 和 footer 的高度 */
+  padding: var(--spacing-md) 0;
+}
 
-  @media (--mobile) {
-    margin-top: 120px; /* 适应移动端更高的头部 */
-    padding: var(--spacing-md) 0;
+@media (--mobile) {
+  .content-wrapper {
+    margin-top: 120px; /* 移动端 header 更高，需要更大的边距 */
   }
+}
+
+/* 确保容器有合适的宽度限制 */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* 移除之前可能导致滚动条的样式 */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 .featured-content {

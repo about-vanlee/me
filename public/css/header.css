@@ -6,17 +6,20 @@ header {
   width: 100%;
   top: 0;
   z-index: 1000;
+  height: auto;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  height: 60px;
 
   @media (--mobile) {
     flex-direction: column;
     padding: var(--spacing-sm);
+    height: auto;
   }
 }
 
@@ -88,4 +91,10 @@ nav a {
   transform: scale(1.05);
   transition: transform 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 二级导航样式调整 */
+.subnav-container {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-sm) 0;
 }
