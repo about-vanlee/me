@@ -86,6 +86,11 @@ const pages = {
     file: 'javascript.html',
     active: 'js',
   },
+  '/ai/grok': {
+    title: 'Grok - AI 模型详情',
+    file: 'ai/grok.html',
+    active: 'ai',
+  },
 };
 
 // 博客文章处理函数
