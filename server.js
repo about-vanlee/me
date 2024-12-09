@@ -1,9 +1,25 @@
+// 原生的nodejs 模块
 const http = require('http');
 const fs = require('fs').promises;
 const path = require('path');
+
+// 第三方模块
 const marked = require('marked');
 const matter = require('gray-matter');
 const highlight = require('highlight.js');
+
+// 常量
+const { MARKED_OPTIONS } = require('./src/constants/markdown');
+const { pages } = require('./src/constants/routes');
+const {
+  TEMPLATE_FILE,
+  VIEWS_DIR,
+  PAGES_DIR,
+  POSTS_DIR,
+  PUBLIC_DIR,
+  MIME_TYPES,
+  PORT,
+} = require('./src/constants/server');
 
 // 配置 marked
 marked.setOptions({
@@ -13,85 +29,8 @@ marked.setOptions({
     }
     return highlight.highlightAuto(code).value;
   },
-  gfm: true,
-  tables: true,
-  breaks: true,
-  pedantic: false,
-  smartLists: true,
-  smartypants: true,
+  ...MARKED_OPTIONS,
 });
-
-const PORT = process.env.PORT || 3000;
-const TEMPLATE_FILE = './views/template.html';
-const VIEWS_DIR = path.join(__dirname, 'views');
-const PAGES_DIR = path.join(VIEWS_DIR, 'pages');
-const POSTS_DIR = path.join(__dirname, 'content/posts');
-
-// MIME 类型映射
-const MIME_TYPES = {
-  '.html': 'text/html',
-  '.css': 'text/css',
-  '.js': 'application/javascript',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.gif': 'image/gif',
-};
-
-// 页面路由配置
-const pages = {
-  '/': {
-    title: '首页',
-    file: 'home.html',
-    active: 'home',
-  },
-  '/ai': {
-    title: 'AI 学习',
-    file: 'ai.html',
-    active: 'ai',
-  },
-  '/html': {
-    title: 'HTML 教程',
-    file: 'html.html',
-    active: 'html',
-    isHTML: true,
-  },
-  '/html/basic': {
-    title: 'HTML 基础课程',
-    file: 'html/basic.html',
-    active: 'html',
-    isHTML: true,
-    htmlSection: 'basic',
-  },
-  '/html/advanced': {
-    title: 'HTML 高级课程',
-    file: 'html/advanced.html',
-    active: 'html',
-    isHTML: true,
-    htmlSection: 'advanced',
-  },
-  '/html/blog': {
-    title: 'HTML 博客',
-    file: 'html/blog.html',
-    active: 'html',
-    isHTML: true,
-    htmlSection: 'blog',
-  },
-  '/css': {
-    title: 'CSS 教程',
-    file: 'css.html',
-    active: 'css',
-  },
-  '/javascript': {
-    title: 'JavaScript 教程',
-    file: 'javascript.html',
-    active: 'js',
-  },
-  '/ai/grok': {
-    title: 'Grok - AI 模型详情',
-    file: 'ai/grok.html',
-    active: 'ai',
-  },
-};
 
 // 博客文章处理函数
 async function renderBlogPost(slug) {
