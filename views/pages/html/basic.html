@@ -1,105 +1,29 @@
 <div class="course-container">
-  <!-- 课程标题部分 -->
-  <div class="course-header">
-    <h1>HTML 基础教程</h1>
-    <p class="course-intro">通过本教程，您将学习 HTML 的基础知识，掌握网页开发的核心技能。</p>
-  </div>
-
-  <!-- 思维导图和视频的并排布局 -->
-  <div class="overview-section">
-    <!-- 思维导图部分 -->
-    <div class="markmap">
-      <script type="text/template">
-        ---
-        markmap:
-          maxWidth: 300
-          colorFreezeLevel: 2
-        ---
-
-
-        ## 扩展阅读
-
-        - https://www.w3schools.com/tags/tag_doctype.ASP
-        - https://developer.mozilla.org/en-US/docs/Glossary/Doctype
-        - https://html.spec.whatwg.org/multipage/syntax.html#the-doctype
-        - https://www.freecodecamp.org/news/what-is-the-doctype-declaration-in-html/
-
-        ## 介绍
-        - 文档类型声明 / The HTML document type declaration
-        - 必须以<!DOCTYPE>声明开头
-        - not an HTML tag
-        - 确保浏览器尽最大努力遵循相关规范
-        ## 大小写问题
-        - MDN 代码示例的约定是使用小写
-        - 但也常见将其写为<!DOCTYPE html>
-        - `<!DOCTYPE html>`
-        - `<!DocType html>`
-        - `<!Doctype html>`
-        - `<!doctype html>`
-
-        ## 使用注意事项
-        - 位置：文档第一行
-        - 重要性：不可省略 + 影响SEO和页面表现
-        ## HTML 4.01
-        - DOCTYPE声明指的是文档类型定义 (DTD)
-        - `<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">`
-
-        ## XHTML 1.1
-
-        - `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">`
-      </script>
-    </div>
-
-    <!-- 视频教程部分 -->
-    <div class="video-section">
-      <div class="video-container">
-        <video controls>
-          <source src="/public/videos/html-basic-doctype.mp4" type="video/mp4" />
-          您的浏览器不支持 HTML5 视频。
-        </video>
+  <div class="course-list">
+    <div class="course-item">
+      <h3>HTML DOCTYPE 声明</h3>
+      <p class="course-desc">了解 HTML 文档类型声明的重要性和使用方法</p>
+      <div class="course-meta">
+        <span><i class="fas fa-clock"></i> 15分钟</span>
+        <span><i class="fas fa-book-reader"></i> 基础难度</span>
       </div>
+      <a href="/html/basic/doctype" class="course-link"
+        >查看详情 <i class="fas fa-arrow-right"></i
+      ></a>
     </div>
 
-    <div class="additional-content">
-      <h2>文档类型</h2>
-      <table>
-        <tr>
-          <th>文档类型</th>
-          <th>作用</th>
-        </tr>
-        <tr>
-          <td>Strict DTD</td>
-          <td>用于排除 W3C 预计随着 CSS 支持的增长而逐步淘汰的属性和元素的网页</td>
-        </tr>
-        <tr>
-          <td>Transitional DTD</td>
-          <td>用于包含W3C 预计随着 CSS 支持的增长而逐步淘汰的属性和元素的网页</td>
-        </tr>
-        <tr>
-          <td>Frameset DTD</td>
-          <td>用于带有框架的网页</td>
-        </tr>
-      </table>
-
-      <h2>渲染模式</h2>
-      <table>
-        <tr>
-          <th>模式</th>
-          <th>描述</th>
-        </tr>
-        <tr>
-          <td>Full standards mode</td>
-          <td>完全标准模式根据 W3C Web 标准呈现页面</td>
-        </tr>
-        <tr>
-          <td>Quirks 模式</td>
-          <td>以不符合标准的方式呈现页面</td>
-        </tr>
-        <tr>
-          <td>Almost standards mode</td>
-          <td>接近于完全标准模式，但具有支持少量怪癖的功能</td>
-        </tr>
-      </table>
+    <div class="course-item">
+      <h3>HTML 基本结构</h3>
+      <p class="course-desc">掌握 HTML 文档的基本结构和必要元素</p>
+      <div class="course-meta">
+        <span><i class="fas fa-clock"></i> 20分钟</span>
+        <span><i class="fas fa-book-reader"></i> 基础难度</span>
+      </div>
+      <a href="/html/basic/structure" class="course-link"
+        >查看详情 <i class="fas fa-arrow-right"></i
+      ></a>
     </div>
+
+    <!-- 可以继续添加更多课程项目 -->
   </div>
 </div>

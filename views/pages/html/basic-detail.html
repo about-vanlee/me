@@ -1,0 +1,51 @@
+<div class="course-detail">
+  <!-- 课程头部信息 -->
+  <header class="course-header">
+    <h1>{{courseTitle}}</h1>
+    <div class="course-meta">
+      <span class="duration"><i class="fas fa-clock"></i> {{duration}}</span>
+      <span class="level"><i class="fas fa-book-reader"></i> {{level}}</span>
+      <span class="author"><i class="fas fa-user"></i> {{author}}</span>
+      <span class="update-time"><i class="fas fa-calendar"></i> {{updateTime}}</span>
+    </div>
+  </header>
+
+  <!-- 课程内容 -->
+  <article class="course-content">
+    <!-- 思维导图部分 -->
+    <section class="mindmap-section">
+      <h2><i class="fas fa-sitemap"></i> 知识导图</h2>
+      <div class="markmap">{{mindmapContent}}</div>
+    </section>
+
+    <!-- 视频部分 -->
+    <section class="video-section">
+      <h2><i class="fas fa-play-circle"></i> 教学视频</h2>
+      <div class="video-container">{{videoContent}}</div>
+    </section>
+
+    <!-- 文本内容部分 -->
+    <section class="content-section">
+      <h2><i class="fas fa-book"></i> 详细内容</h2>
+      <div class="article-content">{{courseContent}}</div>
+    </section>
+  </article>
+
+  <!-- 底部导航 -->
+  <footer class="course-footer">
+    <div class="course-nav">
+      <a href="/html/basic" class="back-to-list"><i class="fas fa-arrow-left"></i> 返回课程列表</a>
+      <div class="course-pagination">
+        {{#if prevCourse}}
+        <a href="{{prevCourse.link}}" class="prev-course"
+          ><i class="fas fa-chevron-left"></i> {{prevCourse.title}}</a
+        >
+        {{/if}} {{#if nextCourse}}
+        <a href="{{nextCourse.link}}" class="next-course"
+          >{{nextCourse.title}} <i class="fas fa-chevron-right"></i
+        ></a>
+        {{/if}}
+      </div>
+    </div>
+  </footer>
+</div>
