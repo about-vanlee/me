@@ -1,0 +1,201 @@
+.navigation-site {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navigation-site h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--primary-color);
+  font-size: 2.5em;
+}
+
+/* 布局容器 */
+.navigation-layout {
+  display: flex;
+  gap: 30px;
+  position: relative;
+  padding-left: 270px; /* 为固定定位的导航留出空间 */
+}
+
+/* 左侧导航样式 */
+.quick-nav {
+  width: 250px;
+  position: fixed;
+  left: calc((100% - 1400px) / 2 + 20px); /* 居中对齐，考虑父容器的padding */
+  top: 100px;
+  bottom: 120px; /* 距离底部留出空间 */
+  background: var(--background-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 内容过多时可滚动 */
+}
+
+/* 滚动条样式 */
+.quick-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quick-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quick-nav::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.quick-nav::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+.quick-nav h2 {
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  font-size: 1.3em;
+  text-align: left;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.quick-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quick-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.quick-nav-item:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateX(5px);
+}
+
+.quick-nav-item i {
+  font-size: 1.1em;
+  width: 20px;
+  text-align: center;
+}
+
+/* 主要内容区域 */
+.main-content {
+  flex: 1;
+  min-width: 0; /* 防止flex子项溢出 */
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 原有的样式保持不变 */
+.nav-section {
+  margin-bottom: 40px;
+  scroll-margin-top: 100px;
+}
+
+.nav-section h2 {
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.nav-item {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.nav-item h3 {
+  color: var(--primary-color);
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.nav-item p {
+  color: var(--text-color);
+  margin: 0;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* 响应式设计 */
+@media (max-width: 1400px) {
+  .quick-nav {
+    left: 20px; /* 屏幕宽度小于最大宽度时，固定在左侧 */
+  }
+}
+
+@media (max-width: 1024px) {
+  .navigation-layout {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .quick-nav {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: auto;
+  }
+
+  .quick-nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .quick-nav-item {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .quick-nav-item:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation-site {
+    padding: 10px;
+  }
+
+  .quick-nav-item {
+    min-width: 100%;
+  }
+}

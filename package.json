@@ -13,7 +13,6 @@
     "prettier": "^3.4.1"
   },
   "dependencies": {
-    "ejs": "^3.1.10",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.10.0",
     "marked": "^15.0.3"
